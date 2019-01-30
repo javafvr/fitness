@@ -57,31 +57,10 @@ $cakeDescription = 'Fitness))';
   <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <a class="navbar-brand" href="#start">Стать участником</a>
     <!-- <a class="navbar-item" href="/users/login">Личный кабинет</a> -->
-    <div class="form-inline my-2 my-lg-0">
-      <a class="btn btn-success my-2 my-sm-0" href="/users/login">Войти</a>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
     </div>
-
-  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#">Disabled</a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-        <div class="dropdown-menu" aria-labelledby="dropdown01">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-      </li>
-    </ul>
-  </div>
+    <img src="" alt="">
+    <a class="navbar-brand my-2 my-lg-0" href="/users/login">Личный кабинет</a>
 </nav>
 
 <main role="main" class="mt-5">
@@ -108,10 +87,10 @@ $cakeDescription = 'Fitness))';
         <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
         <p><a class="btn btn-secondary" href="#" role="button">View details »</a></p>
       </div>
-      <div class="col-md-4">
-        <h2>Heading</h2>
+      <div id="start" class="col-md-4">
+        <h2>Стать участником</h2>
         <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-        <p><a class="btn btn-secondary" href="#" role="button">View details »</a></p>
+        <p><a class="btn btn-secondary" href="#" role="button">Зарегистрируйся »</a></p>
       </div>
     </div>
 
@@ -127,5 +106,14 @@ $cakeDescription = 'Fitness))';
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
       <script>window.jQuery || document.write('<script src="/docs/4.2/assets/js/vendor/jquery-slim.min.js"><\/script>')</script><script src="/docs/4.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-zDnhMsjVZfS3hiP7oCBRmfjkQC4fzxVxFhBx8Hkz2aZX8gEvA/jsP3eXRCvzTofP" crossorigin="anonymous"></script>
 
+<style>
+a.navbar-brand {
+  /* background-color:white; */
+  /* text-align:center; */
+  margin: 0 auto;
+}
+@media(min-width:400px){
+}
+</style>
 </body>
 </html>
