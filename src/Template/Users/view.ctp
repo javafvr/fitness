@@ -27,21 +27,25 @@
                 }
             ?>
             <div class="col-12 col-md-6 col-xl-4">
-                <div class="card mb-3 <?php echo $classTask; ?>" style="max-width: 18rem;">
-                    <div class="card-header"><?php echo $status; ?></div>
-                    <div class="card-body">
-                        <h5 class="card-title"><?php echo $task['article']['title']?></h5>
-                        <p class="card-text">
-                        <?php echo $this->Text->truncate(
-                            $task['article']['text'],
-                            75,
-                            [
-                                'ellipsis' => '...',
-                                'exact' => false
-                            ]
-                        );?>
+                    <a href="/articles/view/<?=$task->article->id?>" style="text-decoration:none;">
+                    <div class="card mb-3 <?php echo $classTask; ?>" style="max-width: 18rem;">
+                        <div class="card-header"><?php echo $status; ?></div>
+                        <div class="card-body">
+                            <h5 class="card-title"><?php echo $task['article']['title']?></h5>
+                                <p class="card-text">
+                                    <?php echo $this->Text->truncate(
+                                        $task['article']['text'],
+                                        75,
+                                        [
+                                            'ellipsis' => '...',
+                                            'exact' => false
+                                        ]
+                                    );?>
+                                </p>
+                        </div>
                     </div>
-                </div>
+                    </a>
+                <!-- </a> -->
             </div>
             
             <?php
@@ -64,3 +68,27 @@
   
 </main>
 <?php $this->end();?>
+
+<style>
+a.card {
+  color: inherit!important;
+  text-decoration: inherit;
+}
+a.card button {
+  z-index: 1;
+}
+a.card-body{
+    color:inherit;
+}
+
+.card.bg-light{
+    color:black;
+}
+
+a.card.disabled,
+a.card[disabled] {
+  pointer-events: none;
+  opacity: .8;
+}
+
+</style>
