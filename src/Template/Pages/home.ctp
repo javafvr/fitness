@@ -54,11 +54,12 @@ $cakeDescription = 'Fitness))';
 </header> -->
 
 <body>
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-  <a class="navbar-brand" href="#">Navbar</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <a class="navbar-brand" href="#start">Стать участником</a>
+    <!-- <a class="navbar-item" href="/users/login">Личный кабинет</a> -->
+    <div class="form-inline my-2 my-lg-0">
+      <a class="btn btn-success my-2 my-sm-0" href="/users/login">Войти</a>
+    </div>
 
   <div class="collapse navbar-collapse" id="navbarsExampleDefault">
     <ul class="navbar-nav mr-auto">
@@ -80,13 +81,10 @@ $cakeDescription = 'Fitness))';
         </div>
       </li>
     </ul>
-    <div class="form-inline my-2 my-lg-0">
-      <a class="btn btn-success my-2 my-sm-0" href="/users/login">Войти</a>
-    </div>
   </div>
 </nav>
 
-<main role="main">
+<main role="main" class="mt-5">
 
   <!-- Main jumbotron for a primary marketing message or call to action -->
   <div class="jumbotron">

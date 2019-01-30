@@ -12,13 +12,17 @@ $this->start('tb_body_start');
 
 
 <body <?= $this->fetch('tb_body_attrs') ?>>
+<div class="pos-f-t">
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
   <a class="navbar-brand" href="#"><?= Configure::read('App.title') ?></a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-
-    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+    <div class="collapse navbar-collapse" id="navbarToggleExternalContent">
+        <div class="bg-dark p-4">
+        <h5 class="text-white h4">Collapsed content</h5>
+        <span class="text-muted">Toggleable via the navbar brand.</span>
+        </div>
         <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
             <a class="nav-link" href="#">Home<span class="sr-only">(current)</span></a>
@@ -48,6 +52,7 @@ $this->start('tb_body_start');
     </div>
   </div>
 </nav>
+</div>
     <!-- <div id="header" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -61,10 +66,9 @@ $this->start('tb_body_start');
             </div>
         </div>
     </div> -->
-    <div class="container-fluid mt-5">
-        <div class="row">
-            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                <!-- <h1 class="page-header"><?= $this->request->getParam('controller'); ?></h1> -->
+    <!-- <div class="container-fluid mt-5"> -->
+        <!-- <div class="row justify-center"> -->
+            <!-- <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main"> -->
                 <?php echo $this->fetch('tb_content'); ?>
 <?php
 
