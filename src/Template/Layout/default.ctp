@@ -28,6 +28,7 @@
 
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
+    <?= $this->fetch('bootstrap\bootstrap.js') ?>
     <?= $this->fetch('script') ?>
 </head>
 <body>

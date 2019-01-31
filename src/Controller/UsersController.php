@@ -2,7 +2,8 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
-
+use Cake\ORM\TableRegistry;
+use Cake\Collection\Collection;
 /**
  * Users Controller
  *
@@ -12,6 +13,7 @@ use App\Controller\AppController;
  */
 class UsersController extends AppController
 {
+    var $uses = array('Task');
 
     /**
      * Index method
@@ -24,10 +26,10 @@ class UsersController extends AppController
             'contain' => ['Parameters']
         ];
         $users = $this->paginate($this->Users);
-
+        
         $this->set(compact('users'));
     }
-
+    
     /**
      * View method
      *
@@ -37,9 +39,22 @@ class UsersController extends AppController
      */
     public function view($id = null)
     {
-        $user = $this->Users->get($id, ['contain' => ['Tasks','Tasks.Articles']]);
+        $id = $this->Auth->user('id');
+        // $id = $this->request->getSession()->read('Auth.User.id');
+        if(!is_null($id)){
+            $user = $this->Users->get($id, ['contain' => ['Tasks','Tasks.Articles']]);
+            $Article = TableRegistry::getTableLocator()->get('Articles');
+            $articles=$Article->find('all',['contain' => ['Tasks','Tasks.Articles']]);
 
-        $this->set('user', $user);
+
+            // $Task = TableRegistry::getTableLocator()->get('Tasks');
+            // $tasks = $this->Task->get($id);
+        } else {
+            $this->Flash->error(__('Доступ запрещен! Войдите в систему!'));
+            return $this->redirect(['action' => 'login']);
+        }
+        
+        $this->set(compact('user', 'articles'));
     }
 
     /**
@@ -55,7 +70,7 @@ class UsersController extends AppController
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('The user has been saved.'));
 
-                return $this->redirect(['action' => 'view']);
+                return $this->redirect(['action' => 'view/'.$user->id]);
             }
             $this->Flash->error(__('The user could not be saved. Please, try again.'));
         }
@@ -124,7 +139,30 @@ class UsersController extends AppController
     public function initialize()
     {
         parent::initialize();
-        $this->Auth->allow(['logout', 'add', 'view', 'edit']);
+        // $user = $this->Auth->identify();
+        // if(!$user)
+            $this->Auth->allow(['logout', 'add', 'view', 'edit']);
+            // $this->Auth->deny(['view', 'edit','index']);
+    }
+
+    function isAuthorized($user) {
+    // Все зарегистрированные пользователи могут добавлять статьи
+    // До 3.4.0 $this->request->param('action') делали так.
+    if ($this->request->getParam('action') === 'view/'.$user['id']) {
+        return true;
+    }
+
+    // // Владелец статьи может редактировать и удалять ее
+    // // До 3.4.0 $this->request->param('action') делали так.
+    // if (in_array($this->request->getParam('action'), ['edit', 'delete'])) {
+    //     // До 3.4.0 $this->request->params('pass.0') делали так.
+    //     $articleId = (int)$this->request->getParam('pass.0');
+    //     if ($this->Articles->isOwnedBy($articleId, $user['id'])) {
+    //         return true;
+    //     }
+    // }
+
+    return parent::isAuthorized($user);
     }
 
     public function logout()

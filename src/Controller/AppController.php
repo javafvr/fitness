@@ -76,4 +76,20 @@ class AppController extends Controller
         // continues to work. Also enable the read only actions.
         $this->Auth->allow(['display', 'view', 'index']);
     }
+
+    public function beforeFilter(Event $event)
+    {
+        // $this->Auth->allow(['index','view']);
+        $this->set('loggedIn', $this->Auth->user());
+    }
+    public function isAuthorized($user)
+    {
+        // Администратор может получить доступ к каждому действию
+        if (isset($user['role']) && $user['role'] === 'admin') {
+            return true;
+        }
+
+        // Иначе, запрещаем по умолчанию
+        return false;
+    }
 }

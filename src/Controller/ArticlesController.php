@@ -1,6 +1,6 @@
 <?php
 namespace App\Controller;
-
+use Cake\ORM\TableRegistry;
 use App\Controller\AppController;
 
 /**
@@ -12,6 +12,17 @@ use App\Controller\AppController;
  */
 class ArticlesController extends AppController
 {
+    public function initialize()
+    {
+        parent::initialize();
+        $this->Auth->allow([]);
+    }
+
+    function isAuthorized($user) {
+        if ($this->Auth->user('role') != 'admin') {
+            $this->Auth->deny('add', 'edit');
+        }
+    }
 
     /**
      * Index method
@@ -34,9 +45,27 @@ class ArticlesController extends AppController
      */
     public function view($id = null)
     {
+        
         $article = $this->Articles->get($id, [
             'contain' => ['Tasks']
         ]);
+            
+        $user_id = $this->Auth->user('id');
+        if($user_id){
+            $Task = TableRegistry::get('Tasks');
+            if($article->tasks){
+                $task = $Task->get($article->tasks[0]->id);
+            }else{
+                $task = $Task->newEntity();
+                $task->user_id = $user_id;
+                $task->article_id = $id;
+            }
+
+            if ($Task->save($task)) {
+                // The $article entity contains the id now
+                $id = $task->id;
+            }
+        }
 
         $this->set('article', $article);
     }

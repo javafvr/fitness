@@ -10,32 +10,29 @@
 
 <?php $this->start('tb_content');?>
 <main role="main" class="mt-5">
-
-
-
       <div class="container">
         <div class="row">
             <?php
-            foreach($user['tasks'] as $task):
-                
-                if($task['is_new']){
-                    $classTask="text-white bg-primary";
-                    $status = "Новая";
-                }else{
+            foreach($articles as $article):
+                //$user->tasks[4]->id; 
+                if(count($article->tasks)){
                     $classTask="bg-light";
                     $status = "Просмотрено";
+                }else{
+                    $classTask="text-white bg-primary";
+                    $status = "Новая";
 
                 }
             ?>
             <div class="col-12 col-md-6 col-xl-4">
-                    <a href="/articles/view/<?=$task->article->id?>" style="text-decoration:none; display:block;">
+                    <a href="/articles/view/<?=$article->id?>" style="text-decoration:none; display:block;">
                     <div class="card mb-3  <?php echo $classTask; ?>" style="max-width: 18rem;">
                         <div class="card-header"><?php echo $status; ?></div>
                         <div class="card-body">
-                            <h5 class="card-title"><?php echo $task['article']['title']?></h5>
+                            <h5 class="card-title"><?php echo $article->title?></h5>
                                 <p class="card-text">
                                     <?php echo $this->Text->truncate(
-                                        $task['article']['text'],
+                                        $article->text,
                                         75,
                                         [
                                             'ellipsis' => '...',

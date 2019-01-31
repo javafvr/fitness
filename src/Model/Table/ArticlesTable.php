@@ -36,7 +36,7 @@ class ArticlesTable extends Table
         parent::initialize($config);
 
         $this->setTable('articles');
-        $this->setDisplayField('title');
+        $this->setDisplayField('title','id','text');
 
         $this->addBehavior('Timestamp');
 
