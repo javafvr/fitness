@@ -54,6 +54,10 @@ class AppController extends Controller
 
 
         $this->loadComponent('Auth', [
+            'loginAction' => '/Login',
+            'loginRedirect' => '/Articles',
+            'logoutRedirect' => '/Login',
+            'authError' => 'Did you really think you are allowed to see that?',
             'authenticate' => [
                 'Form' => [
                     'fields' => [
@@ -81,12 +85,21 @@ class AppController extends Controller
     {
         // $this->Auth->allow(['index','view']);
         $this->set('loggedIn', $this->Auth->user());
+        // if($this->request->prefix == 'admin') {
+        //     // Set the layout.
+        //     $this->viewBuilder()->setLayout('admin');
+        // }
     }
     public function isAuthorized($user)
     {
-        // Администратор может получить доступ к каждому действию
-        if (isset($user['role']) && $user['role'] === 'admin') {
+        // Any registered user can access public functions
+        if (!$this->request->getParam('prefix')) {
             return true;
+        }
+
+        // Only admins can access admin functions
+        if ($this->request->getParam('prefix') === 'admin') {
+            return (bool)($user['role'] === 'admin');
         }
 
         // Иначе, запрещаем по умолчанию

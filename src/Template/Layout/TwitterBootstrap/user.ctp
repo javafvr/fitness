@@ -19,14 +19,6 @@ $this->start('tb_body_start');
         <span class="navbar-toggler-icon"></span>
         </button> -->
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav">
-                <li class="nav-item <?php echo $this->name == "Users" ? 'active' : '' ?>">
-                    <a class="nav-link" href="/admin/users">Пользователи <?php if($this->name == "Users"):?><span class="sr-only">(current)</span><?php endif;?></a>
-                </li>
-                <li class="nav-item <?php echo $this->name == "Articles" ? 'active' : 'active' ?>">
-                    <a class="nav-link" href="/admin/articles">Статьи<?php if($this->name == "Articles"):?><span class="sr-only">(current)</span><?php endif;?></a>
-                </li>
-            </ul>
         </div>
         <?php if(!empty($loggedIn)): ?>
             <a class="btn btn-danger my-2 my-sm-0" href="/users/logout">Выйти</a>

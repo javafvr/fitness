@@ -45,6 +45,13 @@ use Cake\Routing\Route\DashedRoute;
  */
 Router::defaultRouteClass(DashedRoute::class);
 
+
+
+
+
+
+
+
 Router::scope('/', function (RouteBuilder $routes) {
     // Register scoped middleware for in scopes.
     $routes->registerMiddleware('csrf', new CsrfProtectionMiddleware([
@@ -57,6 +64,9 @@ Router::scope('/', function (RouteBuilder $routes) {
      */
     $routes->applyMiddleware('csrf');
 
+
+    
+
     /**
      * Here, we are connecting '/' (base path) to a controller called 'Pages',
      * its action called 'display', and we pass a param to select the view file
@@ -68,6 +78,20 @@ Router::scope('/', function (RouteBuilder $routes) {
      * ...and connect the rest of 'Pages' controller's URLs.
      */
     $routes->connect('/pages/*', ['controller' => 'Pages', 'action' => 'display']);
+
+
+    // $routes->connect('/', ['controller' => 'Pages', 'action' => 'index']);
+    // $routes->connect('/Login', ['controller' => 'Users', 'action' => 'login']);
+    // $routes->connect('/Signup', ['controller' => 'Users', 'action' => 'signup']);
+    // $routes->connect('/Logout', ['controller' => 'Users', 'action' => 'logout']);
+    
+    // $routes->connect('/User/Profile', ['controller' => 'Users', 'action' => 'profile']);
+    // $routes->connect('/Blog', ['controller' => 'Blog', 'action' => 'blog']);
+
+    // $routes->connect('/Article/Add', ['controller' => 'Article', 'action' => 'add']);
+    // $routes->connect('/Article/Manage', ['controller' => 'Article', 'action' => 'manage']);
+    // $routes->connect('/Article/Edit', ['controller' => 'Article', 'action' => 'edit']);
+    // $routes->connect('/Article/Delete', ['controller' => 'Article', 'action' => 'delete']);
 
     /**
      * Connect catchall routes for all controllers.
@@ -102,3 +126,17 @@ Router::scope('/', function (RouteBuilder $routes) {
  * });
  * ```
  */
+
+Router::prefix('admin', function ($routes) {
+    // All routes here will be prefixed with `/admin`
+    // And have the prefix => admin route element added.
+    // $routes->connect('/', ['controller' => 'Admin', 'action' => 'index']);
+    $routes->connect('/', ['controller' => 'Admin', 'action' => 'index']);
+    $routes->fallbacks(DashedRoute::class);
+});
+
+/**
+ * Load all plugin routes. See the Plugin documentation on
+ * how to customize the loading of plugin routes.
+ */
+// Plugin::routes();

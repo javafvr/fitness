@@ -60,7 +60,11 @@ $cakeDescription = 'Fitness))';
     <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
     </div>
     <img src="" alt="">
-    <a class="navbar-brand my-2 my-lg-0" href="/users/login">Личный кабинет</a>
+    <?php if($loggedIn):?>
+      <a class="navbar-brand my-2 my-lg-0" href="/users/view/<?=$loggedIn['id']?>"><?=$loggedIn['name']?></a>
+    <?php else:?>
+      <a class="navbar-brand my-2 my-lg-0" href="/users/login">Личный кабинет</a>
+    <?php endif;?>
 </nav>
 
 <main role="main" class="mt-5">
@@ -81,6 +85,7 @@ $cakeDescription = 'Fitness))';
         <h2>Heading</h2>
         <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
         <p><a class="btn btn-secondary" href="#" role="button">View details »</a></p>
+        <?php echo $this->Html->link('Build Settings', ['prefix' => 'admin','controller' => 'Articles']); ?>
       </div>
       <div class="col-md-4">
         <h2>Heading</h2>

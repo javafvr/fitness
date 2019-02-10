@@ -1,11 +1,10 @@
 <?php
-namespace App\Controller;
+namespace App\Controller\Admin;
 
 use App\Controller\AppController;
 use Cake\Event\Event;
 use Cake\ORM\TableRegistry;
 use Cake\Collection\Collection;
-use WyriHaximus\TwigView\Lib\Twig\Extension\Number;
 /**
  * Users Controller
  *
@@ -16,19 +15,15 @@ use WyriHaximus\TwigView\Lib\Twig\Extension\Number;
 class UsersController extends AppController
 {
     var $uses = array('Task');
-
+    
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
-        
-        // $this->Auth->authorize = array('Controller'); 
-        $this->set('loggedIn', $this->Auth->user());
+
         if(!$this->Auth->isAuthorized()){
-            //$this->redirect(array('controller'=>'users','action'=>'login', 'prefix'=>false));
-        }
+            $this->redirect(array('controller'=>'/','action'=>'index', 'prefix'=>false));
+        } 
     }
-       
-    
     /**
      * Index method
      *
@@ -53,18 +48,17 @@ class UsersController extends AppController
      */
     public function view($id = null)
     {
-        $user_id = $this->Auth->user('id');
+        $id = $this->Auth->user('id');
+        // $id = $this->request->getSession()->read('Auth.User.id');
+        if(!is_null($id)){
+            $user = $this->Users->get($id, ['contain' => ['Tasks','Tasks.Articles']]);
+            $Article = TableRegistry::getTableLocator()->get('Articles');
+            $articles=$Article->find('all',['contain' => ['Tasks','Tasks.Articles']]);
 
 
-        if(!is_null($id) ){
-            if($user_id===(Int)$id){
-                $user = $this->Users->get($id, ['contain' => ['Tasks','Tasks.Articles']]);
-                $Article = TableRegistry::getTableLocator()->get('Articles');
-                $articles=$Article->find('all',['contain' => ['Tasks','Tasks.Articles']]);
-            } else{
-                return $this->redirect(['action' => 'view/'.$user_id]);    
-            }
-        } else{
+            // $Task = TableRegistry::getTableLocator()->get('Tasks');
+            // $tasks = $this->Task->get($id);
+        } else {
             $this->Flash->error(__('Доступ запрещен! Войдите в систему!'));
             return $this->redirect(['action' => 'login']);
         }
@@ -154,22 +148,31 @@ class UsersController extends AppController
     public function initialize()
     {
         parent::initialize();
-        
-        //$id = $this->Auth->user('id');
-        //$this->Auth->allow(['logout', 'add', 'view/'.$id, 'edit']);
+        // $user = $this->Auth->identify();
+        // if(!$user)
+           // $this->Auth->allow(['logout', 'add', 'view', 'edit']);
+            // $this->Auth->deny(['view', 'edit','index']);
     }
 
     // function isAuthorized($user) {
+    // // // Все зарегистрированные пользователи могут добавлять статьи
+    // // // До 3.4.0 $this->request->param('action') делали так.
+    // // if ($this->request->getParam('action') === 'view/'.$user['id']) {
+    //      return true;
+    // }
 
-    //     // Все зарегистрированные пользователи могут просматривать свой профиль
-    //     if ($user['id']) {
-    //         return true;
-    //     }
+    // // // Владелец статьи может редактировать и удалять ее
+    // // // До 3.4.0 $this->request->param('action') делали так.
+    // // if (in_array($this->request->getParam('action'), ['edit', 'delete'])) {
+    // //     // До 3.4.0 $this->request->params('pass.0') делали так.
+    // //     $articleId = (int)$this->request->getParam('pass.0');
+    // //     if ($this->Articles->isOwnedBy($articleId, $user['id'])) {
+    // //         return true;
+    // //     }
+    // // }
 
-    //     return parent::isAuthorized($user);
-    // }  
-
-
+    // return parent::isAuthorized($user);
+    // }
 
     public function logout()
     {
